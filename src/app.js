@@ -29,7 +29,7 @@ function validateForm() {
         return false;
     }
     //for participants list
-    if(listLength < 3 || listLength > 20){
+    if(listLength < 2 || listLength > 20){
         errParticipants.innerHTML = "doit entrer 2 a 20 participants!"
         return false;
     }
@@ -65,10 +65,10 @@ function ajouterParticipant(){
             >
             Ajouter</button>
         </div>
-
-    `
-    let endBtn = document.getElementById("end-participants");
-    endBtn.addEventListener('click', () => {
+        
+        `
+        let endBtn = document.getElementById("end-participants");
+        endBtn.addEventListener('click', () => {
         participant.innerHTML = ``;
     })
     let addBtn = document.getElementById("ajouter");
@@ -77,7 +77,18 @@ function ajouterParticipant(){
         listLength++;
         total.innerHTML = `${listLength} participants`
         list.innerHTML += `
-            <li>${nomUtilisateur.value}</li>
-        `  
+            <li class = "flex justify-between items-center">${nomUtilisateur.value} <button 
+            type = "button"
+            class="retirerBtn mt-3 rounded border border-daret-vert px-4 py-2 font-medium text-daret-vert hover:bg-daret-vert-clair focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
+            >Retirer</button></li>
+        `
+        let retirerBtn = document.querySelectorAll(".retirerBtn")      
+        retirerBtn.forEach(function(a) {
+            a.addEventListener('click', function(){
+                this.parentElement.remove();
+                listLength--;
+                total.innerHTML = `${listLength} participants`
+            })
+        })
     })
 }
