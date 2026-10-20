@@ -38,6 +38,8 @@
           id="daret-form"
           novalidate
           class="mt-4 space-y-5 rounded-lg border border-daret-bordure bg-white p-5"
+          
+          onsubmit = "return validateForm()"
         >
           <div>
             <label for="nom-cercle" class="block font-medium">Nom du cercle</label>
@@ -48,7 +50,7 @@
               autocomplete="off"
               class="mt-1 w-full rounded border border-daret-bordure px-3 py-2 focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
             />
-            <p id="nom-cercle-erreur" class="mt-1 hidden text-sm font-medium text-daret-erreur"></p>
+            <p id="nom-cercle-erreur" class="mt-1 text-sm font-medium text-daret-erreur"></p>
           </div>
 
           <div>
@@ -60,7 +62,7 @@
               inputmode="numeric"
               class="mt-1 w-full rounded border border-daret-bordure px-3 py-2 focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
             />
-            <p id="cotisation-erreur" class="mt-1 hidden text-sm font-medium text-daret-erreur"></p>
+            <p id="cotisation-erreur" class="mt-1 text-sm font-medium text-daret-erreur"></p>
           </div>
 
           <div>
@@ -85,7 +87,7 @@
               type="date"
               class="mt-1 w-full rounded border border-daret-bordure px-3 py-2 focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
             />
-            <p id="date-debut-erreur" class="mt-1 hidden text-sm font-medium text-daret-erreur"></p>
+            <p id="date-debut-erreur" class="mt-1 text-sm font-medium text-daret-erreur"></p>
           </div>
 
           <fieldset>
