@@ -26,9 +26,48 @@ function validateForm() {
         errDate.innerHTML = "entrer un date"
         return false;
     }
+    //for participants list
+    
     else{
         errDate.innerHTML = ""
     }
     return true;
     //need to add validation when entering a participant for us-02
+
+}
+/*partie de US-02*/
+let list = document.getElementById("participants-liste");
+let participant = document.getElementById("input-participant");
+function ajouterParticipant(){
+    participant.innerHTML = `
+        <label for="nomUtilisateur">Nom Completet: </label>
+        <input id="nomUtilisateur" 
+        name="nomUtilisateur" 
+        type = "text"               
+        class="mt-1 w-full rounded border border-daret-bordure px-3 py-2 focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
+        />
+        <div>
+            <button
+              id = "end-participants"
+              class="mt-3 rounded border border-daret-vert px-4 py-2 font-medium text-daret-vert hover:bg-daret-vert-clair focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
+            >
+            Terminer</button>
+            <button 
+              id = "ajouter"
+              class="rounded bg-daret-vert px-5 py-2 font-semibold text-white hover:bg-daret-vert/90 focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
+            >
+            Ajouter</button>
+        </div>
+
+    `
+    let endBtn = document.getElementById("end-participants");
+    endBtn.addEventListener('click', () => {
+        participant.innerHTML = ``;
+    })
+    let addBtn = document.getElementById("ajouter");
+    addBtn.addEventListener('click', () => {
+        list.innerHTML += `
+            <li>${nomUtilisateur.value}</li>
+        `
+    })
 }

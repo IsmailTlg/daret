@@ -96,16 +96,19 @@
               Entre <span id="participants-min">2</span> et <span id="participants-max">20</span> prénoms fictifs.
               <span id="participants-compteur" class="font-semibold">0 participant</span>
             </p>
+            <div id="input-participant">
 
+            </div>
             <!-- Les champs de participant sont créés par ton JavaScript (US-02). -->
             <ul id="participants-liste" class="mt-3 space-y-3" data-min="2" data-max="20"></ul>
-
             <p id="participants-erreur" class="mt-1 hidden text-sm font-medium text-daret-erreur"></p>
+
 
             <button
               type="button"
               id="ajouter-participant"
               class="mt-3 rounded border border-daret-vert px-4 py-2 font-medium text-daret-vert hover:bg-daret-vert-clair focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
+              onclick= ajouterParticipant()
             >
               Ajouter un participant
             </button>
