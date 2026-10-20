@@ -7,6 +7,8 @@ let inputDate = document.getElementById("date-debut")
 let errDate = document.getElementById("date-debut-erreur")
 let form = document.getElementById("daret-form")
 let nameRegex = /^[A-Za-zÀ-ÿ0-9 \-]{3,40}$/
+let listLength = 0;
+let errParticipants = document.getElementById("participants-erreur")
 function validateForm() {
     if(!nameRegex.test(inputName.value)){
         errName.innerHTML = "cercle name invalide"
@@ -27,7 +29,10 @@ function validateForm() {
         return false;
     }
     //for participants list
-    
+    if(listLength < 3 || listLength > 20){
+        errParticipants.innerHTML = "doit entrer 2 a 20 participants!"
+        return false;
+    }
     else{
         errDate.innerHTML = ""
     }
@@ -40,7 +45,7 @@ let list = document.getElementById("participants-liste");
 let participant = document.getElementById("input-participant");
 function ajouterParticipant(){
     participant.innerHTML = `
-        <label for="nomUtilisateur">Nom Completet: </label>
+        <label for="nomUtilisateur">Nom Complete: </label>
         <input id="nomUtilisateur" 
         name="nomUtilisateur" 
         type = "text"               
@@ -48,11 +53,13 @@ function ajouterParticipant(){
         />
         <div>
             <button
+              type = "button"
               id = "end-participants"
               class="mt-3 rounded border border-daret-vert px-4 py-2 font-medium text-daret-vert hover:bg-daret-vert-clair focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
             >
             Terminer</button>
             <button 
+              type = "button"
               id = "ajouter"
               class="rounded bg-daret-vert px-5 py-2 font-semibold text-white hover:bg-daret-vert/90 focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
             >
@@ -65,9 +72,12 @@ function ajouterParticipant(){
         participant.innerHTML = ``;
     })
     let addBtn = document.getElementById("ajouter");
+    let total = document.getElementById("participants-compteur");
     addBtn.addEventListener('click', () => {
+        listLength++;
+        total.innerHTML = `${listLength} participants`
         list.innerHTML += `
             <li>${nomUtilisateur.value}</li>
-        `
+        `  
     })
 }
