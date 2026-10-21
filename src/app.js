@@ -92,3 +92,17 @@ function ajouterParticipant(){
         })
     })
 }
+/*Partie de US-03*/
+function calculResultat(){
+    let montantRecu = Number(inputCotisation.value) * listLength
+    //total par participant est meme valeur que montant Recu
+    //nombre des tures est meme valeur que nombre des participants
+    let dateDe1ertour = inputDate.value;
+    //cette list va retourn tous les resultats sous form : 
+    //[montantRecu, totalParParticipant, nbrDeTour, date1erTour]
+    let resultats = [montantRecu, montantRecu, listLength, dateDe1ertour]
+    return resultats
+}
+
+
+
