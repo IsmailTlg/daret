@@ -3,12 +3,16 @@ let inputName = document.getElementById("nom-cercle")
 let errName = document.getElementById("nom-cercle-erreur")
 let inputCotisation = document.getElementById("cotisation")
 let errCotisation = document.getElementById("cotisation-erreur")
+let inputPeriode = document.getElementById("periodicite")
 let inputDate = document.getElementById("date-debut")
 let errDate = document.getElementById("date-debut-erreur")
 let form = document.getElementById("daret-form")
 let nameRegex = /^[A-Za-zÀ-ÿ0-9 \-]{3,40}$/
 let listLength = 0;
 let errParticipants = document.getElementById("participants-erreur")
+let calendrier = document.getElementById("calendrier")
+let participants = []
+let participantsNames = [];
 function validateForm() {
     if(!nameRegex.test(inputName.value)){
         errName.innerHTML = "cercle name invalide"
@@ -77,10 +81,13 @@ function ajouterParticipant(){
         listLength++;
         total.innerHTML = `${listLength} participants`
         list.innerHTML += `
-            <li class = "flex justify-between items-center">${nomUtilisateur.value} <button 
-            type = "button"
-            class="retirerBtn mt-3 rounded border border-daret-vert px-4 py-2 font-medium text-daret-vert hover:bg-daret-vert-clair focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
-            >Retirer</button></li>
+            <div class = "element flex justify-between items-center">
+                <li class="name">${nomUtilisateur.value}</li> 
+                <button 
+                type = "button"
+                class="retirerBtn mt-3 rounded border border-daret-vert px-4 py-2 font-medium text-daret-vert hover:bg-daret-vert-clair focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"
+                >Retirer</button>
+            </div>
         `
         let retirerBtn = document.querySelectorAll(".retirerBtn")      
         retirerBtn.forEach(function(a) {
@@ -103,6 +110,68 @@ function calculResultat(){
     let resultats = [montantRecu, montantRecu, listLength, dateDe1ertour]
     return resultats
 }
+/*Partie de US-04*/
+function genererCalendrier(resultat){
+    //counting the final date.
+    let dateSeparee = resultat[3].split("-")
+    let date = new Date(dateSeparee[0], dateSeparee[1]-1, dateSeparee[2])
+    //this k is gonna be indicator which periode we have, 1=>weekly, 2=>every15days, 3=>monthly
+    let k;
+    if(inputPeriode.value == "hebdomadaire"){
+        date.setDate(date.getDate() + (7*resultat[2]));
+        k=1;
+    }
+    else if(inputPeriode.value == "quinzaine"){
+        date.setDate(date.getDate() + (15 * resultat[2]))
+        k=2;
+    }
+    else{
+        date.setMonth(date.getMonth() +  resultat[2])
+        k=3;
+    }
+    let day = String(date.getDate()).padStart(2, '0')
+    let month = String(date.getMonth()+1).padStart(2, '0')
+    let year = String(date.getFullYear())
+    let dateDerniere = `${year}-${month}-${day}`
+    //=========================================
+    let etatVide = document.getElementById("etat-vide")
+    etatVide.classList.add("hidden")
+    let contenuResultat = document.getElementById("contenu-resultat")
+    contenuResultat.querySelector("dl div dt").innerHTML = `Reçu par le bénéficiaire à chaque tour: ${resultat[0]} MAD`
+    contenuResultat.querySelector("dl .div2 dt").innerHTML = `Total versé par participant sur le cycle: ${resultat[1]} MAD`
+    contenuResultat.querySelector("dl .div3 dt").innerHTML = `Nombre de tours: ${resultat[2]} tours`
+    contenuResultat.querySelector("dl .div4 dt").innerHTML = `Premier tour ${resultat[3]}· dernier tour ${dateDerniere}`
+    contenuResultat.classList.remove("hidden") 
 
-
-
+    participants = document.querySelectorAll("#participants-liste .name")
+    participantsNames = []
+    participants.forEach(a => {
+        participantsNames.push(a.textContent.trim())
+    })
+    //add a way to shuffle the list
+    let table = document.getElementById("calendrier-corps");
+    //resultat [2] stocke nombre des tours
+    table.innerHTML = ``
+    for(let i = 0; i<resultat[2]; i++){
+        if(k == 1){
+            date.setDate(date.getDate() + i*7)
+        }
+        else if(k == 2){
+            date.setDate(date.getDate() + i*15)
+        }
+        else{
+            date.setMonth(date.getMonth() + i)
+        }
+        let date2 = `${String(date.getFullYear())}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+        console.log(date2)
+        table.innerHTML += `
+            <tr>
+                <td scope="col" class="px-4 py-3">${i+1}</td>
+                <td scope="col" class="px-4 py-3">${date2}</td>
+                <td scope="col" class="px-4 py-3">${participantsNames[i]}</td>
+                <td scope="col" class="px-4 py-3">${resultat[0]}</td>
+                <td scope="col" class="px-4 py-3">???</td>
+            </tr>
+        `
+    }
+}

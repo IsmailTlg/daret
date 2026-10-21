@@ -158,15 +158,15 @@
               <dt class="text-sm text-daret-encre/80">Reçu par le bénéficiaire à chaque tour</dt>
               <dd id="resume-cagnotte" class="text-xl font-bold text-daret-vert"></dd>
             </div>
-            <div class="rounded-lg border border-daret-bordure bg-white p-4">
+            <div class="div2 rounded-lg border border-daret-bordure bg-white p-4">
               <dt class="text-sm text-daret-encre/80">Total versé par participant sur le cycle</dt>
               <dd id="resume-total-cycle" class="text-xl font-bold text-daret-vert"></dd>
             </div>
-            <div class="rounded-lg border border-daret-bordure bg-white p-4">
+            <div class="div3 rounded-lg border border-daret-bordure bg-white p-4">
               <dt class="text-sm text-daret-encre/80">Nombre de tours</dt>
               <dd id="resume-nb-tours" class="text-xl font-bold text-daret-vert"></dd>
             </div>
-            <div class="rounded-lg border border-daret-bordure bg-white p-4">
+            <div class="div4 rounded-lg border border-daret-bordure bg-white p-4">
               <dt class="text-sm text-daret-encre/80">Premier tour · dernier tour</dt>
               <dd id="resume-dates" class="text-xl font-bold text-daret-vert"></dd>
             </div>
@@ -204,6 +204,9 @@
                   <th scope="col" class="px-4 py-3">Statut</th>
                   <th scope="col" class="px-4 py-3"><span class="sr-only">Action</span></th>
                 </tr>
+                <div class="remplir">
+
+                </div>
               </thead>
               <!--
                 Les lignes sont créées par ton JavaScript (US-04). Convention conseillée :
@@ -257,6 +260,7 @@
       <p class="mx-auto max-w-5xl px-4 py-4 text-sm text-daret-encre/80">
         Daret — projet pédagogique YouCode. Données fictives.
       </p>
+      <button type="button" onclick="genererCalendrier(calculResultat())">test</button>
     </footer>
   </body>
 </html>
