@@ -13,6 +13,10 @@ let errParticipants = document.getElementById("participants-erreur")
 let calendrier = document.getElementById("calendrier")
 let participants = []
 let participantsNames = [];
+//to stop the page from reloading after a submit
+form.addEventListener("submit", function(a) {
+    a.preventDefault();
+})
 function validateForm() {
     if(!nameRegex.test(inputName.value)){
         errName.innerHTML = "cercle name invalide"
@@ -110,8 +114,12 @@ function calculResultat(){
     let resultats = [montantRecu, montantRecu, listLength, dateDe1ertour]
     return resultats
 }
+
 /*Partie de US-04*/
-function genererCalendrier(resultat){
+function genererCalendrier(resultat, access){
+    if(!access){
+        return 0;
+    }
     //counting the final date.
     let dateSeparee = resultat[3].split("-")
     let date = new Date(dateSeparee[0], dateSeparee[1]-1, dateSeparee[2])
