@@ -116,7 +116,7 @@ function calculResultat(){
 }
 
 /*Partie de US-04*/
-function genererCalendrier(resultat, access){
+function genererCalendrier(resultat, access, shuffeled = false){
     if(!access){
         return 0;
     }
@@ -153,11 +153,13 @@ function genererCalendrier(resultat, access){
     contenuResultat.classList.remove("hidden") 
 
     participants = document.querySelectorAll("#participants-liste .name")
-    participantsNames = []
-    participants.forEach(a => {
-        participantsNames.push(a.textContent.trim())
-    })
-    //add a way to shuffle the list
+    if(!shuffeled){
+        participantsNames = []
+        participants.forEach(a => {
+            participantsNames.push(a.textContent.trim())
+            console.log("eneterd")
+        })
+    }
     let table = document.getElementById("calendrier-corps");
     //resultat [2] stocke nombre des tours
     table.innerHTML = ``
@@ -188,3 +190,27 @@ function genererCalendrier(resultat, access){
     }
     console.log(dateorigin)
 }
+//add a way to shuffle the list (us-05)
+let btnSort = document.getElementById("tirage-au-sort")
+btnSort.addEventListener('click', function(){
+    let temp;
+    let rndm1;
+    let rndm2;
+    for(let i = 0 ; i<50; i++){
+        //participants length is the max index we can have
+        rndm1 = Math.floor(Math.random() * (participantsNames.length));
+        rndm2 = Math.floor(Math.random() * (participantsNames.length));
+        temp = participantsNames[rndm1]
+        participantsNames[rndm1] = participantsNames[rndm2];
+        participantsNames[rndm2] = temp; 
+        console.log(rndm1, rndm2)
+        console.log(participantsNames)
+    }
+    console.log("clicked!")
+    console.log(participantsNames)
+    genererCalendrier(calculResultat(), validateForm(), true)
+})
+let btnNormal = document.getElementById("ordre-saisie")
+btnNormal.addEventListener('click', function(){
+    genererCalendrier(calculResultat(), validateForm())
+})
