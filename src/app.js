@@ -117,16 +117,17 @@ function genererCalendrier(resultat){
     let date = new Date(dateSeparee[0], dateSeparee[1]-1, dateSeparee[2])
     //this k is gonna be indicator which periode we have, 1=>weekly, 2=>every15days, 3=>monthly
     let k;
+    let dateorigin = new Date(date)
     if(inputPeriode.value == "hebdomadaire"){
-        date.setDate(date.getDate() + (7*resultat[2]));
+        date.setDate(date.getDate() + (7* (resultat[2] - 1)));
         k=1;
     }
     else if(inputPeriode.value == "quinzaine"){
-        date.setDate(date.getDate() + (15 * resultat[2]))
+        date.setDate(date.getDate() + (15 * (resultat[2] - 1)))
         k=2;
     }
     else{
-        date.setMonth(date.getMonth() +  resultat[2])
+        date.setMonth(date.getMonth() +  (resultat[2] - 1))
         k=3;
     }
     let day = String(date.getDate()).padStart(2, '0')
@@ -153,16 +154,19 @@ function genererCalendrier(resultat){
     //resultat [2] stocke nombre des tours
     table.innerHTML = ``
     for(let i = 0; i<resultat[2]; i++){
-        if(k == 1){
-            date.setDate(date.getDate() + i*7)
+        if(k == 1 && i != 0){
+            dateorigin.setDate(dateorigin.getDate() + 7)
+        }
+        else if(i == 0){
+            dateorigin.setDate(dateorigin.getDate());
         }
         else if(k == 2){
-            date.setDate(date.getDate() + i*15)
+            dateorigin.setDate(dateorigin.getDate() + 15)
         }
         else{
-            date.setMonth(date.getMonth() + i)
+            dateorigin.setMonth(dateorigin.getMonth() + 1)
         }
-        let date2 = `${String(date.getFullYear())}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+        let date2 = `${String(dateorigin.getFullYear())}-${String(dateorigin.getMonth() + 1).padStart(2, '0')}-${String(dateorigin.getDate()).padStart(2, '0')}`
         console.log(date2)
         table.innerHTML += `
             <tr>
@@ -174,4 +178,5 @@ function genererCalendrier(resultat){
             </tr>
         `
     }
+    console.log(dateorigin)
 }
