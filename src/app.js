@@ -181,11 +181,11 @@ function genererCalendrier(resultat, access, shuffeled = false){
         console.log(date2)
         table.innerHTML += `
             <tr>
-                <td scope="col" class="px-4 py-3">${i+1}</td>
-                <td scope="col" class="px-4 py-3">${date2}</td>
-                <td scope="col" class="px-4 py-3">${participantsNames[i]}</td>
-                <td scope="col" class="px-4 py-3">${resultat[0]}</td>
-                <td scope="col" class="px-4 py-3">À venir</td>
+                <td scope="col" class="nbrTour px-4 py-3">${i+1}</td>
+                <td scope="col" class="dateTour px-4 py-3">${date2}</td>
+                <td scope="col" class="px-4 py-3"><a class = "benificiaire">${participantsNames[i]}</a></td>
+                <td scope="col" class="montantRecu px-4 py-3">${resultat[0]}</td>
+                <td scope="col" class="statut px-4 py-3">À venir</td>
                 <td><button
                 class="terminerBtn mt-3 mr-2 rounded border border-daret-vert px-4 py-2 font-medium text-daret-vert hover:bg-daret-vert-clair focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"                
                 >Terminee</button></td>
@@ -222,6 +222,37 @@ function genererCalendrier(resultat, access, shuffeled = false){
             console.log(calendrier)
         }) 
     })
+    /*US-07*/
+    let binificiares = document.querySelectorAll(".benificiaire")
+    let dialogue = document.querySelector("#detail-tour")
+    let fermerDialogue = document.querySelector("#detail-fermer")
+    binificiares.forEach(a => {
+        a.addEventListener('click', function(){
+            dialogue.querySelector("div dd").textContent = a.parentElement.parentElement.querySelector(".dateTour").textContent
+            dialogue.querySelector("#dialogueBenef dd").textContent = a.parentElement.parentElement.querySelector(".benificiaire").textContent
+            dialogue.querySelector("#dialogueMontant").textContent = a.parentElement.parentElement.querySelector(".montantRecu").textContent + " MAD"
+            dialogue.querySelector("#detail-contributeurs").innerHTML = ``;
+            for(let i = 0; i<participantsNames.length; i++){
+                if(participantsNames[i] != a.textContent){
+                    dialogue.querySelector("#detail-contributeurs").innerHTML += `<li>${participantsNames[i]}</li>`
+                }
+                console.log(a.textContent)
+                console.log(participantsNames[i])
+            }
+            dialogue.showModal()
+        })
+        ///closing when clicked on the button
+        fermerDialogue.addEventListener('click', function(){
+            dialogue.close()
+        })
+        ///closing when clicked outside
+        dialogue.addEventListener('click', (event) => {
+            if(event.target === dialogue){
+                dialogue.close()
+            }
+        })
+    })
+
 }
 //add a way to shuffle the list (us-05)
 let btnSort = document.getElementById("tirage-au-sort")
