@@ -13,6 +13,7 @@ let errParticipants = document.getElementById("participants-erreur")
 let calendrier = document.getElementById("calendrier")
 let participants = []
 let participantsNames = [];
+let btnTerminer;
 //to stop the page from reloading after a submit
 form.addEventListener("submit", function(a) {
     a.preventDefault();
@@ -184,11 +185,43 @@ function genererCalendrier(resultat, access, shuffeled = false){
                 <td scope="col" class="px-4 py-3">${date2}</td>
                 <td scope="col" class="px-4 py-3">${participantsNames[i]}</td>
                 <td scope="col" class="px-4 py-3">${resultat[0]}</td>
-                <td scope="col" class="px-4 py-3">???</td>
+                <td scope="col" class="px-4 py-3">À venir</td>
+                <td><button
+                class="terminerBtn mt-3 mr-2 rounded border border-daret-vert px-4 py-2 font-medium text-daret-vert hover:bg-daret-vert-clair focus:outline-2 focus:outline-offset-2 focus:outline-daret-vert"                
+                >Terminee</button></td>
             </tr>
         `
     }
+    btnTerminer = document.querySelectorAll(".terminerBtn")
     console.log(dateorigin)
+    /*US-06*/
+    let toursCompletes = document.createElement('tfoot')
+    btnTerminer.forEach(a=>{
+        a.addEventListener('click', function(){
+            let b;
+            b = a.closest("tr")
+            console.log("clicked")
+            if(a.innerHTML == "Terminee"){
+                b.children[b.children.length-2].innerHTML = "Terminé"
+                a.innerHTML = "Annuler"
+            }
+            else{ 
+                b.children[b.children.length-2].innerHTML = "À venir"
+                a.innerHTML = "Terminee"
+            }
+            let nbrTerminer = 0;
+            for(let i = 0; i<btnTerminer.length; i++){
+                if(btnTerminer[i].innerHTML != "Terminee"){
+                    nbrTerminer++;
+                }
+            }
+            document.getElementById("calendrier").appendChild(toursCompletes)
+            toursCompletes.innerHTML = ``
+            toursCompletes.innerHTML = `${nbrTerminer} tours terminés sur ${resultat[2]}`
+            console.log(nbrTerminer, resultat[2])
+            console.log(calendrier)
+        }) 
+    })
 }
 //add a way to shuffle the list (us-05)
 let btnSort = document.getElementById("tirage-au-sort")
