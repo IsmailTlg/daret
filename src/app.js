@@ -280,5 +280,5 @@ btnNormal.addEventListener('click', function(){
 })
 let reinitialiser = document.getElementById("reinitialiser")
 reinitialiser.addEventListener('click', function(){
-    location.reload
+    location.reload()
 })
