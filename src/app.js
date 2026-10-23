@@ -278,3 +278,7 @@ let btnNormal = document.getElementById("ordre-saisie")
 btnNormal.addEventListener('click', function(){
     genererCalendrier(calculResultat(), validateForm())
 })
+let reinitialiser = document.getElementById("reinitialiser")
+reinitialiser.addEventListener('click', function(){
+    location.reload
+})
