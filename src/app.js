@@ -18,37 +18,41 @@ let btnTerminer;
 form.addEventListener("submit", function(a) {
     a.preventDefault();
 })
-function validateForm() {
+function validateForm(e) {
     if(!nameRegex.test(inputName.value)){
         errName.innerHTML = "cercle name invalide"
-        return false;
+        e.preventDefault()
     }
     else{
         errName.innerHTML = ""
     }
     if(inputCotisation.value < 100 || inputCotisation.value > 50000){
         errCotisation.innerHTML = "cotisation faut etre entre 100 et 50 000 MAD"
-        return false;
+        e.preventDefault()
     }
     else{
         errCotisation.innerHTML = ""
     }
     if(inputDate.value == ""){
         errDate.innerHTML = "entrer un date"
-        return false;
+        e.preventDefault()
+    }
+    else{
+        errDate.innerHTML = ""
     }
     //for participants list
     if(listLength < 2 || listLength > 20){
         errParticipants.innerHTML = "doit entrer 2 a 20 participants!"
-        return false;
+        e.preventDefault()
     }
     else{
-        errDate.innerHTML = ""
+        errParticipants.innerHTML = ''
     }
     return true;
     //need to add validation when entering a participant for us-02
 
 }
+form.addEventListener('submit', validateForm)
 /*partie de US-02*/
 let list = document.getElementById("participants-liste");
 let participant = document.getElementById("input-participant");
