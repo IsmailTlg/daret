@@ -84,6 +84,7 @@ function ajouterParticipant(){
         endBtn.addEventListener('click', () => {
         participant.innerHTML = ``;
     })
+
     let addBtn = document.getElementById("ajouter");
     let total = document.getElementById("participants-compteur");
     addBtn.addEventListener('click', () => {
@@ -108,6 +109,9 @@ function ajouterParticipant(){
         })
     })
 }
+let btnAjouter = document.getElementById("ajouter-participant");
+btnAjouter.addEventListener('click', ajouterParticipant)
+
 /*Partie de US-03*/
 function calculResultat(){
     let montantRecu = Number(inputCotisation.value) * listLength
@@ -258,6 +262,10 @@ function genererCalendrier(resultat, access, shuffeled = false){
     })
 
 }
+let btnSubmit = document.getElementById("generer")
+btnSubmit.addEventListener('click', () => {
+    genererCalendrier(calculResultat(), validateForm())
+})
 //add a way to shuffle the list (us-05)
 let btnSort = document.getElementById("tirage-au-sort")
 btnSort.addEventListener('click', function(){
