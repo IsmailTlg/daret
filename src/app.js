@@ -20,33 +20,33 @@ form.addEventListener("submit", function(a) {
 })
 function validateForm(e) {
     if(!nameRegex.test(inputName.value)){
-        errName.innerHTML = "cercle name invalide"
+        errName.textContent = "cercle name invalide"
         e.preventDefault()
     }
     else{
-        errName.innerHTML = ""
+        errName.textContent = ""
     }
     if(inputCotisation.value < 100 || inputCotisation.value > 50000){
-        errCotisation.innerHTML = "cotisation faut etre entre 100 et 50 000 MAD"
+        errCotisation.textContent = "cotisation faut etre entre 100 et 50 000 MAD"
         e.preventDefault()
     }
     else{
-        errCotisation.innerHTML = ""
+        errCotisation.textContent = ""
     }
     if(inputDate.value == ""){
-        errDate.innerHTML = "entrer un date"
+        errDate.textContent = "entrer un date"
         e.preventDefault()
     }
     else{
-        errDate.innerHTML = ""
+        errDate.textContent = ""
     }
     //for participants list
     if(listLength < 2 || listLength > 20){
-        errParticipants.innerHTML = "doit entrer 2 a 20 participants!"
+        errParticipants.textContent = "doit entrer 2 a 20 participants!"
         e.preventDefault()
     }
     else{
-        errParticipants.innerHTML = ''
+        errParticipants.textContent = ''
     }
     return true;
     //need to add validation when entering a participant for us-02
@@ -84,6 +84,7 @@ function ajouterParticipant(){
         endBtn.addEventListener('click', () => {
         participant.innerHTML = ``;
     })
+
     let addBtn = document.getElementById("ajouter");
     let total = document.getElementById("participants-compteur");
     addBtn.addEventListener('click', () => {
@@ -108,6 +109,9 @@ function ajouterParticipant(){
         })
     })
 }
+let btnAjouter = document.getElementById("ajouter-participant");
+btnAjouter.addEventListener('click', ajouterParticipant)
+
 /*Partie de US-03*/
 function calculResultat(){
     let montantRecu = Number(inputCotisation.value) * listLength
@@ -258,6 +262,10 @@ function genererCalendrier(resultat, access, shuffeled = false){
     })
 
 }
+let btnSubmit = document.getElementById("generer")
+btnSubmit.addEventListener('click', () => {
+    genererCalendrier(calculResultat(), validateForm())
+})
 //add a way to shuffle the list (us-05)
 let btnSort = document.getElementById("tirage-au-sort")
 btnSort.addEventListener('click', function(){
